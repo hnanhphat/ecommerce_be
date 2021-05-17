@@ -109,7 +109,7 @@ userController.updateUser = async (req, res, next) => {
   }
 };
 
-// Verify email
+// Verify sending mail
 userController.verifyEmail = async (req, res, next) => {
   try {
     const { code } = req.body;

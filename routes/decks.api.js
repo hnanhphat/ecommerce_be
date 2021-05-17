@@ -25,7 +25,7 @@ router.get("/", decksController.getListOfDecks);
 router.get("/:id", decksController.getSingleDecks);
 
 /**
- * @route PUT api/decks:id
+ * @route PUT api/decks/:id
  * @description Update a decks
  * @access Public
  */

@@ -21,8 +21,9 @@ const userSchema = Schema(
       default: false,
     },
     friendCount: { type: Number, default: 0 },
-    isDeleted: { type: Boolean, default: false, select: false },
     isAdmin: { type: Boolean, require: false, default: false },
+    isReader: { type: Boolean, require: false, default: false },
+    isDeleted: { type: Boolean, default: false, select: false },
   },
   { timestamps: true }
 );
@@ -32,6 +33,8 @@ userSchema.methods.toJSON = function () {
   delete obj.password;
   delete obj.emailVerified;
   delete obj.emailVerificationCode;
+  delete obj.isAdmin;
+  delete obj.isReader;
   delete obj.isDeleted;
   return obj;
 };

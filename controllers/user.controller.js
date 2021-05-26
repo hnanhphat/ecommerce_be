@@ -8,7 +8,7 @@ const userController = {};
 // Register new User
 userController.register = async (req, res, next) => {
   try {
-    const { avatar, username, email, password } = req.body;
+    const { avatar, fullname, username, email, password } = req.body;
 
     let user = await User.findOne({ email });
     if (user) {
@@ -23,6 +23,7 @@ userController.register = async (req, res, next) => {
     // And save encode password
     user = new User({
       avatar,
+      fullname,
       username,
       email,
       password: encodedPassword,
@@ -58,6 +59,45 @@ userController.register = async (req, res, next) => {
   }
 };
 
+// Get list of users with pagination
+userController.getListOfUsers = async (req, res, next) => {
+  try {
+    // 1. Read the query information
+    let { page, limit, sortBy, fullname, ...filter } = req.query;
+    page = parseInt(page) || 1;
+    limit = parseInt(limit) || 10;
+
+    // 2. Get total user number
+    const totalUser = await User.countDocuments({ ...filter });
+
+    // 3. Calculate total page number
+    const totalPages = Math.ceil(totalUser / limit);
+
+    // 4. Calculate how many data you will skip (offset)
+    const offset = (page - 1) * limit;
+
+    // 5. Get user based on query info
+    let users = await User.find({
+      fullname: new RegExp(fullname, "i"),
+      ...filter,
+    })
+      .sort({ ...sortBy, createdAt: -1 })
+      .skip(offset)
+      .limit(limit);
+
+    res.status(200).json({
+      success: true,
+      data: { users, totalPages },
+      message: "Get list of users successful",
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      error: error.message,
+    });
+  }
+};
+
 // Get current user
 userController.getCurrentUser = async (req, res, next) => {
   try {
@@ -71,6 +111,28 @@ userController.getCurrentUser = async (req, res, next) => {
       success: true,
       data: user,
       message: "Get current user successful",
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      error: error.message,
+    });
+  }
+};
+
+// Get single user
+userController.getSingleUser = async (req, res, next) => {
+  try {
+    const userId = req.params.id;
+    const user = await User.findById(userId);
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    res.status(200).json({
+      success: true,
+      data: user,
+      message: "Get single user successful",
     });
   } catch (error) {
     res.status(400).json({

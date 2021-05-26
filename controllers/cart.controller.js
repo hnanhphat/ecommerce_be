@@ -7,7 +7,11 @@ cartController.createCart = async (req, res, next) => {
   try {
     const userId = req.userId;
     const { decks, quantity } = req.body;
-    let cart = await Cart.findOne({ decks, createdBy: userId });
+    let cart = await Cart.findOne({
+      decks,
+      createdBy: userId,
+      isOrdered: false,
+    });
 
     if (!cart) {
       cart = new Cart({ decks, quantity, createdBy: userId });
@@ -55,7 +59,7 @@ cartController.getUserCart = async (req, res, next) => {
     const offset = (page - 1) * limit;
 
     // 5. Get cart based on query info
-    const cart = await Cart.find({ createdBy: userId, ...filter })
+    const carts = await Cart.find({ createdBy: userId, ...filter })
       .sort({ ...sortBy, createdAt: -1 })
       .skip(offset)
       .limit(limit)
@@ -65,7 +69,7 @@ cartController.getUserCart = async (req, res, next) => {
     // 6. Send cart + totalPages info
     res.status(200).json({
       success: true,
-      data: { cart: cart, totalCart, totalPages },
+      data: { carts, totalPages },
       message: "Get list of cart successful",
     });
   } catch (error) {

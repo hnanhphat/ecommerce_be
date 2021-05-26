@@ -13,12 +13,20 @@ const { body } = require("express-validator");
 router.post(
   "/",
   validators.validate([
+    body("fullname", "Invalid Fullname").exists().notEmpty(),
     body("username", "Invalid Username").exists().notEmpty(),
     body("email", "Invalid Email").exists().isEmail(),
     body("password", "Invalid Password").exists().notEmpty(),
   ]),
   userController.register
 );
+
+/**
+ * @route GET api/users?page=1&limit=10
+ * @description Get list of users with pagination
+ * @access Public
+ */
+router.get("/", userController.getListOfUsers);
 
 /**
  * @route GET api/users/me
@@ -28,17 +36,18 @@ router.post(
 router.get("/me", authMiddleware.loginRequired, userController.getCurrentUser);
 
 /**
+ * @route GET api/users/:id
+ * @description Get single user info
+ * @access Public
+ */
+router.get("/:id", userController.getSingleUser);
+
+/**
  * @route PUT api/users
  * @description Update user profile
  * @access Login required
  */
 router.put("/", authMiddleware.loginRequired, userController.updateUser);
-
-/**
- * @route GET api/users?page=1&limit=10
- * @description Get users with pagination
- * @access Login required
- */
 
 /**
  * @route GET api/users/verify

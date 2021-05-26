@@ -11,6 +11,7 @@ const cartSchema = Schema({
     type: Number,
     required: [true, "A decks need a quantity"],
   },
+  isOrdered: { type: Boolean, require: false, default: false },
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",

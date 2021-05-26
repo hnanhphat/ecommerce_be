@@ -7,6 +7,7 @@ require("dotenv").config();
 const userSchema = Schema(
   {
     avatar: { type: String, required: false, default: "" },
+    fullname: { type: String, required: [true, "Fullname is required"] },
     username: { type: String, required: [true, "Username is required"] },
     email: {
       type: String,
@@ -20,7 +21,9 @@ const userSchema = Schema(
       required: [true, "Email Verified is required"],
       default: false,
     },
-    friendCount: { type: Number, default: 0 },
+    position: { type: String, required: false, default: "" },
+    quote: { type: String, required: false, default: "" },
+    friendCount: { type: Number, required: false, default: 0 },
     isAdmin: { type: Boolean, require: false, default: false },
     isReader: { type: Boolean, require: false, default: false },
     isDeleted: { type: Boolean, default: false, select: false },
@@ -33,7 +36,6 @@ userSchema.methods.toJSON = function () {
   delete obj.password;
   delete obj.emailVerified;
   delete obj.emailVerificationCode;
-  delete obj.isAdmin;
   delete obj.isReader;
   delete obj.isDeleted;
   return obj;
@@ -70,7 +72,7 @@ userSchema.statics.findOrCreate = function findOrCreate(profile, cb) {
 // Generate token
 userSchema.methods.generateToken = async function () {
   const token = await jwt.sign({ _id: this._id }, process.env.JWT_SECRET_KEY, {
-    expiresIn: "1d",
+    expiresIn: "7d",
   });
   return token;
 };

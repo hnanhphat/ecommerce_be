@@ -3,6 +3,7 @@ const router = express.Router();
 
 const appointmentApi = require("./appointment.api");
 const authApi = require("./auth.api");
+const cardApi = require("./card.api");
 const cartApi = require("./cart.api");
 const decksApi = require("./decks.api");
 const newsApi = require("./news.api");
@@ -18,6 +19,7 @@ router.get("/", function (req, res, next) {
 
 router.use("/appointments", appointmentApi);
 router.use("/auth", authApi);
+router.use("/card", cardApi);
 router.use("/cart", cartApi);
 router.use("/decks", decksApi);
 router.use("/news", newsApi);

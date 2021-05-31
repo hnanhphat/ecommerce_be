@@ -1,7 +1,7 @@
 const passport = require("passport");
 const FacebookTokenStrategy = require("passport-facebook-token");
 const GoogleTokenStrategy = require("passport-google-token").Strategy;
-const User = require("../model/user");
+const User = require("../models/User");
 
 const FACEBOOK_APP_ID = process.env.FACEBOOK_APP_ID;
 const FACEBOOK_APP_SECRET = process.env.FACEBOOK_APP_SECRET;

@@ -5,6 +5,7 @@ const passport = require("passport");
 const { emailInternalHelper } = require("./helpers/email.helper");
 
 require("dotenv").config();
+require("./helpers/passport.helper");
 
 const path = require("path");
 const cookieParser = require("cookie-parser");

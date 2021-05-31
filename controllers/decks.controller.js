@@ -6,24 +6,26 @@ const decksController = {};
 decksController.createDecks = async (req, res, next) => {
   try {
     const {
-      images,
+      image,
       name,
       sale,
       defaultPrice,
       description,
       oficialPrice,
+      category,
       genres,
       size,
       color,
     } = req.body;
 
     const decks = new Decks({
-      images,
+      image,
       name,
       sale,
       description,
       defaultPrice,
       oficialPrice,
+      category,
       genres,
       size,
       color,
@@ -66,10 +68,18 @@ decksController.getListOfDecks = async (req, res, next) => {
       .skip(offset)
       .limit(limit);
 
+    const categories = await Decks.aggregate([
+      { $group: { _id: "$category", count: { $sum: 1 } } },
+    ]).sort({ _id: 1 });
+
+    const genres = await Decks.aggregate([
+      { $group: { _id: "$genres", cound: { $sum: 1 } } },
+    ]).sort({ _id: 1 });
+
     // 6. Send decks + totalPages info
     res.status(200).json({
       success: true,
-      data: { decks: decks, totalPages },
+      data: { decks, categories, genres, totalPages },
       message: "Get list of decks successful",
     });
   } catch (error) {

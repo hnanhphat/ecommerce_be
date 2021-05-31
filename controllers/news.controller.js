@@ -35,6 +35,7 @@ newsController.createNews = async (req, res, next) => {
 newsController.getSingleNews = async (req, res, next) => {
   try {
     const news = await News.findById(req.params.id).populate("author");
+    news.reviews = await Review.find({ targetId: news._id }).populate("author");
 
     res.status(200).json({
       success: true,
@@ -67,7 +68,10 @@ newsController.getListOfNews = async (req, res, next) => {
     const offset = (page - 1) * limit;
 
     // 5. Get news based on query info
-    let news = await News.find({ title: new RegExp(title, "i"), ...filter })
+    let news = await News.find({
+      title: new RegExp(title, "i"),
+      ...filter,
+    })
       .sort({ ...sortBy, createdAt: -1 })
       .skip(offset)
       .limit(limit)

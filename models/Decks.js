@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const decksSchema = Schema(
   {
-    images: { type: String, required: false, default: "" },
+    image: { type: String, required: false, default: "" },
     name: { type: String, required: [true, "Name is required"] },
     description: {
       type: String,
@@ -13,9 +13,7 @@ const decksSchema = Schema(
     defaultPrice: { type: Number, required: false, default: null },
     oficialPrice: { type: Number, required: true },
     category: { type: String, required: [true, "Category is required"] },
-    genres: { type: String, required: [true, "Genre is required"] },
-    color: { type: String, required: [true, "Color is required"] },
-    size: { type: String, required: [true, "Size is required"] },
+    genres: { type: String, required: false, default: "Other" },
     isDeleted: { type: Boolean, default: false, select: false },
   },
   { timestamps: true }

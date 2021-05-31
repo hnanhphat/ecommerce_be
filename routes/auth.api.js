@@ -27,7 +27,6 @@ router.post(
 router.post(
   "/login/facebook",
   passport.authenticate("facebook-token", { session: false }),
-  // passport.authenticate("facebook-token"),
   authController.loginWithFacebookOrGoogle
 );
 
@@ -39,7 +38,6 @@ router.post(
 router.post(
   "/login/google",
   passport.authenticate("google-token", { session: false }),
-  // passport.authenticate("google-token"),
   authController.loginWithFacebookOrGoogle
 );
 

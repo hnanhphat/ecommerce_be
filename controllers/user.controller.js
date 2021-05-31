@@ -151,10 +151,10 @@ userController.updateUser = async (req, res, next) => {
       throw new Error("User not found");
     }
 
-    const { avatar, username } = req.body;
+    const { avatar, fullname, username } = req.body;
     const userUpdate = await User.findByIdAndUpdate(
       userId,
-      { avatar: avatar, username: username },
+      { fullname, username, avatar },
       { new: true }
     );
 

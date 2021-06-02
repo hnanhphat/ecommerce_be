@@ -106,6 +106,24 @@ cardController.getListOfCards = async (req, res, next) => {
   } catch (error) {}
 };
 
+// Get a single card
+cardController.getSingleCard = async (req, res, next) => {
+  try {
+    const card = await Card.findById(req.params.id);
+
+    res.status(200).json({
+      success: true,
+      data: card,
+      message: "Get single card successful",
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      error: error.message,
+    });
+  }
+};
+
 cardController.getRandomCard = async (req, res, next) => {
   try {
     const count = req.params.count;

@@ -17,9 +17,16 @@ router.post("/", cardController.createCard);
 router.get("/", cardController.getListOfCards);
 
 /**
- * @route GET api/card/me
+ * @route GET api/card/:id
+ * @description Get single card
+ * @access Public
+ */
+router.get("/me/:id", cardController.getSingleCard);
+
+/**
+ * @route GET api/card/:count
  * @description Get random card
- * @access Login required
+ * @access Public
  */
 router.get("/:count", cardController.getRandomCard);
 

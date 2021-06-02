@@ -21,6 +21,7 @@ const userSchema = Schema(
       required: [true, "Email Verified is required"],
       default: false,
     },
+    role: { type: String, required: false, default: "User" },
     position: { type: String, required: false, default: "" },
     quote: { type: String, required: false, default: "" },
     friendCount: { type: Number, required: false, default: 0 },

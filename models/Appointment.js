@@ -18,12 +18,13 @@ const appointmentSchema = Schema(
       required: [true, "User is required"],
       ref: "User",
     },
-    serviceType: { type: String, required: [true, "Service Type is required"] },
+    serviceType: { type: String, required: false, default: "" },
     appointmentDate: {
       type: String,
       required: [true, "Appointment Date is required"],
     },
     clientPhone: { type: String, required: [true, "Client Phone is required"] },
+    position: { type: String, required: false, default: "" },
   },
   { timestamps: true }
 );

@@ -142,7 +142,36 @@ userController.getSingleUser = async (req, res, next) => {
   }
 };
 
-// Update user
+// Update single user
+userController.updateSingleUser = async (req, res, next) => {
+  try {
+    console.log(req.params.id);
+    const user = await User.findById(req.params.id);
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    const { avatar, fullname, username, position } = req.body;
+    const userUpdate = await User.findByIdAndUpdate(
+      req.params.id,
+      { fullname, username, avatar, position },
+      { new: true }
+    );
+
+    res.status(200).json({
+      success: true,
+      data: userUpdate,
+      message: "Update Profile successfully",
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      error: error.message,
+    });
+  }
+};
+
+// Update current user
 userController.updateUser = async (req, res, next) => {
   try {
     const userId = req.userId;
@@ -151,10 +180,10 @@ userController.updateUser = async (req, res, next) => {
       throw new Error("User not found");
     }
 
-    const { avatar, fullname, username } = req.body;
+    const { avatar, fullname, username, position } = req.body;
     const userUpdate = await User.findByIdAndUpdate(
       userId,
-      { fullname, username, avatar },
+      { fullname, username, avatar, position },
       { new: true }
     );
 

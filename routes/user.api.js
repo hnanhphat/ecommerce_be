@@ -43,11 +43,18 @@ router.get("/me", authMiddleware.loginRequired, userController.getCurrentUser);
 router.get("/:id", userController.getSingleUser);
 
 /**
- * @route PUT api/users
- * @description Update user profile
+ * @route PUT api/users/me
+ * @description Update current user profile
  * @access Login required
  */
-router.put("/", authMiddleware.loginRequired, userController.updateUser);
+router.put("/me", authMiddleware.loginRequired, userController.updateUser);
+
+/**
+ * @route PUT api/users:id
+ * @description Update single user profile
+ * @access Admin or Reader
+ */
+router.put("/:id", userController.updateSingleUser);
 
 /**
  * @route GET api/users/verify

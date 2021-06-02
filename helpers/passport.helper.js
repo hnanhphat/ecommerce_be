@@ -28,8 +28,13 @@ passport.use(
       User.findOrCreate(
         {
           facebookId: profile.id,
-          name: profile.displayName,
+          fullname: profile.displayName,
+          username: profile.emails[0].value.slice(
+            0,
+            profile.emails[0].value.indexOf("@")
+          ),
           email: profile.emails[0].value,
+          emailVerified: true,
           avatarUrl: profile.photos[0].value,
         },
         function (error, user) {
@@ -51,9 +56,14 @@ passport.use(
       User.findOrCreate(
         {
           googleId: profile.id,
-          name: profile.displayName,
+          fullname: profile.displayName,
+          username: profile.emails[0].value.slice(
+            0,
+            profile.emails[0].value.indexOf("@")
+          ),
           email: profile.emails[0].value,
-          avatarUrl: profile._json.picture,
+          emailVerified: true,
+          avatar: profile._json.picture,
         },
         function (err, user) {
           return done(err, user);

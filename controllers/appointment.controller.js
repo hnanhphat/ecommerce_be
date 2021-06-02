@@ -86,7 +86,7 @@ appointmentController.removeRequest = async (req, res, next) => {
 appointmentController.getListOfAppointments = async (req, res, next) => {
   try {
     // 1. Read the query information
-    let { page, limit, sortBy, ...filter } = req.query;
+    let { page, limit, sortBy, serviceType, ...filter } = req.query;
     page = parseInt(page) || 1;
     limit = parseInt(limit) || 10;
 
@@ -100,12 +100,13 @@ appointmentController.getListOfAppointments = async (req, res, next) => {
     const offset = (page - 1) * limit;
 
     // 5. Get appointment based on query info
-    let appointments = await Appointment.find({ ...filter })
+    let appointments = await Appointment.find({
+      serviceType: new RegExp(serviceType, "i"),
+      ...filter,
+    })
       .sort({ ...sortBy, createdAt: -1 })
       .skip(offset)
-      .limit(limit)
-      .populate("from")
-      .populate("to");
+      .limit(limit);
 
     res.status(200).json({
       success: true,

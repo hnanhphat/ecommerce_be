@@ -21,8 +21,7 @@ const userSchema = Schema(
       required: [true, "Email Verified is required"],
       default: false,
     },
-    role: { type: String, required: false, default: "User" },
-    position: { type: String, required: false, default: "" },
+    position: { type: String, required: false, default: "User" },
     quote: { type: String, required: false, default: "" },
     friendCount: { type: Number, required: false, default: 0 },
     isAdmin: { type: Boolean, require: false, default: false },
@@ -54,12 +53,14 @@ userSchema.statics.findOrCreate = function findOrCreate(profile, cb) {
       newPassword = await bcrypt.hash(newPassword, salt);
 
       // 2. Save user
-      userObj.name = profile.name;
+      userObj.fullname = profile.fullname;
+      userObj.username = profile.username;
       userObj.email = profile.email;
+      userObj.emailVerified = profile.emailVerified;
       userObj.password = newPassword;
       userObj.googleId = profile.googleId;
       userObj.facebookId = profile.facebookId;
-      userObj.avatarurl = profile.avatarurl;
+      userObj.avatar = profile.avatar;
 
       // 3. Call the cb
       userObj.save(cb);

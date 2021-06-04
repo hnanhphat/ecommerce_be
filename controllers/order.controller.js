@@ -80,7 +80,10 @@ orderController.getAllOrder = async (req, res, next) => {
     limit = parseInt(limit) || 10;
 
     // 2. Get total order number
-    const totalOrders = await Order.countDocuments({ ...filter });
+    const totalOrders = await Order.countDocuments({
+      payment: new RegExp(payment, "i"),
+      ...filter,
+    });
 
     // 3. Calculate total page number
     const totalPages = Math.ceil(totalOrders / limit);

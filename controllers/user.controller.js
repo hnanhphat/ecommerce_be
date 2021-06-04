@@ -68,7 +68,10 @@ userController.getListOfUsers = async (req, res, next) => {
     limit = parseInt(limit) || 10;
 
     // 2. Get total user number
-    const totalUser = await User.countDocuments({ ...filter });
+    const totalUser = await User.countDocuments({
+      fullname: new RegExp(fullname, "i"),
+      ...filter,
+    });
 
     // 3. Calculate total page number
     const totalPages = Math.ceil(totalUser / limit);
@@ -151,10 +154,10 @@ userController.updateSingleUser = async (req, res, next) => {
       throw new Error("User not found");
     }
 
-    const { avatar, fullname, username, position } = req.body;
+    const { avatar, fullname, username, position, role } = req.body;
     const userUpdate = await User.findByIdAndUpdate(
       req.params.id,
-      { fullname, username, avatar, position },
+      { fullname, username, avatar, position, role },
       { new: true }
     );
 

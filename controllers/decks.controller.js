@@ -54,7 +54,10 @@ decksController.getListOfDecks = async (req, res, next) => {
     limit = parseInt(limit) || 10;
 
     // 2. Get total decks number
-    const totalDecks = await Decks.countDocuments({ ...filter });
+    const totalDecks = await Decks.countDocuments({
+      name: new RegExp(name, "i"),
+      ...filter,
+    });
 
     // 3. Calculate total page number
     const totalPages = Math.ceil(totalDecks / limit);

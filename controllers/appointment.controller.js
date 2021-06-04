@@ -8,7 +8,7 @@ appointmentController.sendRequest = async (req, res, next) => {
   try {
     const fromId = req.userId;
     const toId = req.params.id;
-    const { serviceType, appointmentDate, clientPhone } = req.body;
+    const { serviceType, appointmentDate, clientPhone, position } = req.body;
 
     const targetUser = await User.findById(toId);
     if (!targetUser) {
@@ -22,6 +22,7 @@ appointmentController.sendRequest = async (req, res, next) => {
       serviceType,
       appointmentDate,
       clientPhone,
+      position,
     });
     await appointment.save();
 
@@ -91,7 +92,10 @@ appointmentController.getListOfAppointments = async (req, res, next) => {
     limit = parseInt(limit) || 10;
 
     // 2. Get total appointment number
-    const totalAppointment = await Appointment.countDocuments({ ...filter });
+    const totalAppointment = await Appointment.countDocuments({
+      serviceType: new RegExp(serviceType, "i"),
+      ...filter,
+    });
 
     // 3. Calculate total page number
     const totalPages = Math.ceil(totalAppointment / limit);
@@ -131,7 +135,7 @@ appointmentController.getSingleAppointment = async (req, res, next) => {
     res.status(200).json({
       success: true,
       data: appointment,
-      message: "Get single news successful",
+      message: "Get single appointment successful",
     });
   } catch (error) {
     res.status(400).json({

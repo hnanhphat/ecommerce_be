@@ -59,7 +59,10 @@ newsController.getListOfNews = async (req, res, next) => {
     limit = parseInt(limit) || 10;
 
     // 2. Get total news number
-    const totalNews = await News.countDocuments({ ...filter });
+    const totalNews = await News.countDocuments({
+      title: new RegExp(title, "i"),
+      ...filter,
+    });
 
     // 3. Calculate total page number
     const totalPages = Math.ceil(totalNews / limit);

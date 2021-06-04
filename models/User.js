@@ -22,6 +22,7 @@ const userSchema = Schema(
       default: false,
     },
     position: { type: String, required: false, default: "User" },
+    role: { type: String, required: false, default: "User" },
     quote: { type: String, required: false, default: "" },
     friendCount: { type: Number, required: false, default: 0 },
     isAdmin: { type: Boolean, require: false, default: false },

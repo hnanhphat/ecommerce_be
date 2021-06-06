@@ -7,10 +7,10 @@ const newsController = {};
 newsController.createNews = async (req, res, next) => {
   try {
     const userId = req.userId;
-    const { images, title, content, category } = req.body;
+    const { image, title, content, category } = req.body;
 
     const news = new News({
-      images: images,
+      image: image,
       title: title,
       content: content,
       author: userId,
@@ -112,7 +112,7 @@ newsController.updateSingleNews = async (req, res, next) => {
   try {
     // const userId = req.userId;
     // const newsAuthor = await News.findById(req.params.id);
-    const { images, title, content } = req.body;
+    const { image, title, content } = req.body;
 
     // if (newsAuthor.author != userId) {
     //   throw new Error("You cannot edit the other user's news");
@@ -121,7 +121,7 @@ newsController.updateSingleNews = async (req, res, next) => {
     const news = await News.findByIdAndUpdate(
       req.params.id,
       {
-        images: images || [],
+        image: image || [],
         title: title,
         content: content,
         // author: userId,

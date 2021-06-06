@@ -110,12 +110,13 @@ newsController.getListOfNews = async (req, res, next) => {
 // Update a single news
 newsController.updateSingleNews = async (req, res, next) => {
   try {
-    const userId = req.userId;
-    const newsAuthor = await News.findById(req.params.id);
+    // const userId = req.userId;
+    // const newsAuthor = await News.findById(req.params.id);
     const { images, title, content } = req.body;
-    if (newsAuthor.author != userId) {
-      throw new Error("You cannot edit the other user's news");
-    }
+
+    // if (newsAuthor.author != userId) {
+    //   throw new Error("You cannot edit the other user's news");
+    // }
 
     const news = await News.findByIdAndUpdate(
       req.params.id,
@@ -123,7 +124,7 @@ newsController.updateSingleNews = async (req, res, next) => {
         images: images || [],
         title: title,
         content: content,
-        author: userId,
+        // author: userId,
       },
       { new: true }
     );
@@ -144,11 +145,11 @@ newsController.updateSingleNews = async (req, res, next) => {
 // Delete a single news
 newsController.deleteSingleNews = async (req, res, next) => {
   try {
-    const userId = req.userId;
-    const newsAuthor = await News.findById(req.params.id);
-    if (newsAuthor.author != userId) {
-      throw new Error("You cannot delete the other user's news");
-    }
+    // const userId = req.userId;
+    // const newsAuthor = await News.findById(req.params.id);
+    // if (newsAuthor.author != userId) {
+    //   throw new Error("You cannot delete the other user's news");
+    // }
 
     const news = await News.findByIdAndDelete(req.params.id);
 

@@ -10,7 +10,7 @@ const decksSchema = Schema(
       required: [true, "Description content is required"],
     },
     sale: { type: Boolean, required: false, default: false },
-    defaultPrice: { type: Number, required: false, default: null },
+    defaultPrice: { type: Number, required: true },
     oficialPrice: { type: Number, required: true },
     category: { type: String, required: [true, "Category is required"] },
     genres: { type: String, required: false, default: "Other" },

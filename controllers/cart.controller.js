@@ -14,14 +14,17 @@ cartController.createCart = async (req, res, next) => {
     });
 
     if (!cart) {
+      console.log("a");
       cart = new Cart({ decks, quantity, createdBy: userId });
       await cart.save();
     } else {
+      console.log("b");
       cart = await Cart.findOneAndUpdate(
-        { decks, createdBy: userId },
+        { decks, createdBy: userId, isOrdered: false },
         { $inc: { quantity } },
         { new: true }
       );
+      console.log(cart);
     }
 
     res.status(200).json({

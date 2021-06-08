@@ -177,7 +177,9 @@ const socketMethods = (io) => {
       });
       await appointment.save();
 
-      io.emit("apm.request", appointment);
+      const sent = appointment ? true : false;
+
+      io.emit("apm.request", { appointment, sent });
     });
 
     // CHANGE APPOINTMENT STATUS

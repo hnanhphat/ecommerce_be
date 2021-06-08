@@ -20,9 +20,9 @@ emailInternalHelper.createTemplatesIfNotExists = async () => {
         email_key: "verify_email",
         from: "phat.hna2311@gmail.com",
         subject: "Hi %username%, Welcome to Rune House",
-        html: `<h3>Hi %username%</h3>,<br /><br />
-        To complete email verification, please press the button below.<br /><br />
-        <a href="%code%" target="_blank" style="16px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; font-weight:normal; text-align:center; background-color: #d67b35; text-decoration: none; border: none; -webkit-border-radius: 100px; -moz-border-radius: 100px; border-radius: 100px; display: inline-block;"><span style="font-size: 16px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; font-weight:bold; line-height:1.5em; text-align:center;">Verify your Email</span></a>
+        html: `<h3>Hi %username%</h3><br />
+        To complete email verification, please press the button below.<br /><br /><br />
+        <div style="text-decoration: none;"><a href="%code%" target="_blank" style="16px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; font-weight:normal; text-align:center; background-color: #d67b35; text-decoration: none; border: none; -webkit-border-radius: 100px; -moz-border-radius: 100px; border-radius: 100px; display: block;"><span style="-webkit-border-radius: 100px; -moz-border-radius: 100px; border-radius: 100px; font-size: 16px; font-family: Helvetica, Arial, sans-serif; background-color: #d67b35; color: #ffffff; font-weight:bold; line-height:1.5em; text-align:center; padding: 10px 50px;">Verify your Email</span></a></div><br /><br /><br />
         or verify using this link: %code%<br /><br /><br />
         If you did not create an account using this address, please ignore this mail.<br /><br /><br />
         If you have any difficulty during the sign-up, do get in touch with our support hnanhphat@gmail.com

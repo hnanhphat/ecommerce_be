@@ -22,7 +22,7 @@ emailInternalHelper.createTemplatesIfNotExists = async () => {
         subject: "Hi %username%, Welcome to Rune House",
         html: `<h3>Hi %username%</h3>,<br /><br />
         To complete email verification, please press the button below.<br /><br />
-        <a href="%code%" target="_blank" style="16px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; font-weight:normal; text-align:center; background-color: #d67b35; text-decoration: none; border: none; -webkit-border-radius: 100px; -moz-border-radius: 100px; border-radius: 100px; display: inline-block;"><span style="font-size: 16px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; font-weight:normal; line-height:1.5em; text-align:center;">Click Here</span></a>
+        <a href="%code%" target="_blank" style="16px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; font-weight:normal; text-align:center; background-color: #d67b35; text-decoration: none; border: none; -webkit-border-radius: 100px; -moz-border-radius: 100px; border-radius: 100px; display: inline-block;"><span style="font-size: 16px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; font-weight:bold; line-height:1.5em; text-align:center;">Verify your Email</span></a>
         or verify using this link: %code%<br /><br /><br />
         If you did not create an account using this address, please ignore this mail.<br /><br /><br />
         If you have any difficulty during the sign-up, do get in touch with our support hnanhphat@gmail.com

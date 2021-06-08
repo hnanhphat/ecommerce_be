@@ -71,7 +71,7 @@ orderController.getSingleOrder = async (req, res, next) => {
   }
 };
 
-// Get User's Orders
+// Get All Orders
 orderController.getAllOrder = async (req, res, next) => {
   try {
     // 1. Read the query information
